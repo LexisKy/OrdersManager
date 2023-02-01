@@ -1,0 +1,37 @@
+﻿@model Order
+@{
+    //Layout = null;
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Vpn Info</th>
+        <th scope="col">Login Info</th>
+        <th scope="col">Password Info</th>
+        <th scope="col">Client's note</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Description</th>
+        <th scope="col">Payment</th>
+        <th scope="col">Status</th>
+        <th scope="col">Booster's name</th>
+        <th scope="col">Shop's name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Client.vpnInfo</td>
+        <td>@Model.Client.loginInfo</td>
+        <td>@Model.Client.passwordInfo</td>
+        <td>@Model.Client.note</td>
+        <td>@Model.StartDate</td>
+        <td>@Model.EndTime</td>
+        <td>@Model.Description</td>
+        <td>@Model.Payment</td>
+        <td>@Model.status</td>
+        <td>@Model.Booster.UserName</td>
+        <td>@Model.Shop.Name</td>
+    </tr>
+    </tbody>
+</table>

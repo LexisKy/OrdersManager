@@ -1,0 +1,22 @@
+﻿@model Shop
+
+@{
+    //Layout = null;
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Url address</th>
+        <th scope="col">Logo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Url</td>
+        <td><img src="@Model.Image" alt="Card image cap" class="card-img-top" width="75" height="75"></td>
+    </tr>
+    </tbody>
+</table>

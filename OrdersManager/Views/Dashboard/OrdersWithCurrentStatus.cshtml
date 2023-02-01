@@ -1,0 +1,33 @@
+﻿@using OrdersManager.Data.Enum
+@model OrdersManager.ViewModels.DashboardViewModel
+
+<table class="table">
+    <tbody>
+    @foreach (var item in Model.Orders)
+    {
+        <tr>
+    <div class="row mt-3">
+        <div class="col-md-2">
+            <p class="card-text m-0"><strong>Start:</strong> @item.StartDate</p>
+            <p class="card-text m-0"><strong>Price:</strong> @item.Payment</p>
+            <p class="card-text m-0"><strong>Booster:</strong> @item.Booster.UserName</p>
+            <p class="card-text m-0">
+                <a asp-controller="Order" asp-action="Detail" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                @if (User.Identity.IsAuthenticated && @item.status != Status.Done)
+                {   
+                    <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+                }
+                @if (User.Identity.IsAuthenticated && User.IsInRole("admin") && item.status == Status.Done)
+                {   
+                    <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+                }
+            </p>
+        </div>
+        <div class="col-md-2">
+            <img src="@item.Shop.Image" alt="Card image cap" class="card-img-top" width="70%" height="70%">
+        </div>
+    </div>
+    </tr>
+    }
+    </tbody>
+</table>

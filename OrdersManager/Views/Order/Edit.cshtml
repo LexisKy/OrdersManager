@@ -1,0 +1,68 @@
+﻿@using OrdersManager.Data.Enum
+@using OrdersManager.ViewModels
+@model OrderProcessViewModel
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+  @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+  {
+    <div class="mb-3">
+      <label asp-for="Description" class="form-label">Description</label>
+      <input asp-for="Description" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <input type="hidden" asp-for="Client.Id" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Client.Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="Client.note" class="form-label">Client's note</label>
+      <input asp-for="Client.note" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Client.note" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="Client.loginInfo" class="form-label">Client's login info</label>
+      <input asp-for="Client.loginInfo" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Client.loginInfo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="Client.passwordInfo" class="form-label">Client's passwordInfo</label>
+      <input asp-for="Client.passwordInfo" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Client.passwordInfo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="Client.vpnInfo" class="form-label">Client's vpnInfo</label>
+      <input asp-for="Client.vpnInfo" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Client.vpnInfo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+      <label asp-for="Payment" class="form-label">Payment</label>
+      <input asp-for="Payment" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="Payment" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="StartDate" class="form-label">Start Date</label>
+      <input asp-for="StartDate" class="form-control" aria-describedby="emailHelp">
+      <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+      <label asp-for="Booster.UserName" class="form-label">Booster's name</label>
+      @Html.DropDownListFor(x => x.BoosterId, new SelectList(Model.Boosters, "Id", "UserName",selectedValue:Model.Booster.Id))
+      <span class="text-danger">@Html.ValidationMessageFor(x=>x.BoosterId)</span>
+    </div>
+  
+    <div class="mb-3">
+      <label asp-for="Shop.Name" class="form-label">Booster's name</label>
+      @Html.DropDownListFor(x => x.ShopId, new SelectList(Model.Shops, "Id", "Name", selectedValue:Model.Shop.Id))
+      <span class="text-danger">@Html.ValidationMessageFor(x=>x.ShopId)</span>
+    </div>
+  }
+
+  <div class="mb-3">
+    <label asp-for="status" class="form-label">Status</label>
+    <select asp-for="status" asp-items="@Html.GetEnumSelectList<Status>()">
+    </select>
+    <span asp-validation-for="status" class="text-danger"></span>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

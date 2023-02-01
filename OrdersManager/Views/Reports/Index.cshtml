@@ -1,0 +1,26 @@
+﻿@model OrdersManager.ViewModels.ReportsViewModel
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Description</th>
+        <th scope="col">Shop's name</th>
+        <th scope="col">Payment</th>        
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Orders)
+    {
+        <tr>
+            <td>@item.StartDate</td>
+            <td>@item.EndTime</td>
+            <td>@item.Description</td>
+            <td>@item.Shop.Name</td>
+            <td>@item.Payment</td>        
+        </tr>
+    }
+    </tbody>
+    <strong>Total payment: </strong><span>@Model.TotalPayment</span>
+</table>

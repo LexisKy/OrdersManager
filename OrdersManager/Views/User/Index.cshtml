@@ -1,0 +1,49 @@
+﻿@using OrdersManager.ViewModels
+@using OrdersManager.Data.Enum
+@model List<UserViewModel>
+
+<section class="flush-with-above">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-hover align-items-center table-borderless">
+                    <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr class="bg-white">
+                            <th scope="row">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <img src="@user.Image" alt="Card image cap" width="50" height="50">
+                                        <span class="h6 mb-0">@user.UserName</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td>
+                                <a class="btn btn-outline-primary" asp-controller="User" asp-action="Detail" asp-route-id="@user.Id">
+                                    View Profile
+                                </a>
+                                @if (@user.Role == UserRoles.Block)
+                                {
+                                    <a class="btn btn-danger" asp-controller="User" asp-action="UnLockOut" asp-route-id="@user.Id">
+                                        Unlock
+                                    </a> 
+                                }
+                                else
+                                {
+                                    if (user.Role != UserRoles.Admin)
+                                    {
+                                        <a class="btn btn-sm btn-outline-secondary" asp-controller="User" asp-action="LockOut" asp-route-id="@user.Id">
+                                            Lock
+                                        </a>    
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

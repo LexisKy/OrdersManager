@@ -1,0 +1,17 @@
+﻿@model OrdersManager.ViewModels.UserDetailViewModel
+
+
+<h3 class="my-3">User's page</h3>
+<table class="table">
+  <tbody>
+  <tr>
+    <th scope="row">Name</th>
+    <td>@Model.UserName</td>
+  </tr>
+  <tr>
+    <th scope="row">Email</th>
+    <td>@Model.UserEmail</td>
+  </tr>
+  </tbody>
+</table>
+<a asp-controller="User" asp-action="EditUserFromAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-secondary">Edit</a>

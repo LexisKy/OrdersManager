@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using OrdersManager.Data.Enum
+@inject SignInManager<AppUser> SignInManager
+
+@model OrdersManager.ViewModels.DashboardViewModel
+
+<div class="row">
+  <div class="col-md-2">
+    <h3>Hello, @Model.User.UserName</h3>
+  </div>
+  <div class="col-md-4">
+    <img src="@Model.User.ProfileImageUrl" alt="Card image cap" width="50" height="50">    
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="overlay"></div>
+    <h4>Select dates for report</h4>
+    <form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label asp-for="Start" class="form-label">From</label>
+        <input asp-for="Start" class="form-control" aria-describedby="emailHelp">
+        <span asp-validation-for="Start" class="text-danger"></span>
+      </div>
+      <div class="mb-3">
+        <label asp-for="End" class="form-label">To</label>
+        <input asp-for="End" class="form-control" aria-describedby="emailHelp">
+        <span asp-validation-for="End" class="text-danger"></span>
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Reports" asp-action="Index">Generate</button>
+    </form>
+  </div>
+  <div class="col-md-8">
+    <h4>Your orders</h4>
+    <form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="hidden" asp-for="Status" class="form-control" aria-describedby="emailHelp" value="@Status.Done">
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Dashboard" asp-action="OrdersWithCurrentStatus">Done orders</button>
+    </form>
+    <form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="hidden" asp-for="Status" class="form-control" aria-describedby="emailHelp" value="@Status.InProgress">
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Dashboard" asp-action="OrdersWithCurrentStatus">InProgress orders</button>
+    </form>
+    <form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="hidden" asp-for="Status" class="form-control" aria-describedby="emailHelp" value="@Status.NotStarted">
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Dashboard" asp-action="OrdersWithCurrentStatus">NotStarted orders</button>
+    </form>
+    <div class="mt-3">
+      <h4>Edite your profile</h4>
+      <a asp-controller="User" asp-action="EditUserFromAdmin" asp-route-id="@Model.User.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+    </div>
+  </div>
+</div>
+
+@if (User.IsInRole("admin"))
+{
+  <div class="mt-2 row btn-group col-md-2">
+    <a asp-controller="Order" asp-action="Create" class="btn btn-sm btn-outline-primary mt-2">Add new order</a>
+    <a asp-controller="Shop" asp-action="Create" class="btn btn-sm btn-outline-primary mt-2">Add new shop</a>
+    <a asp-controller="User" asp-action="Create" class="btn btn-sm btn-outline-primary mt-2">Add new user</a>
+  </div>  
+}
+
+
+

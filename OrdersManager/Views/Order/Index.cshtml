@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using OrdersManager.Data.Enum
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>Orders list</h1>
+<form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="hidden" asp-for="Status" class="form-control" aria-describedby="emailHelp" value="@Status.Done">
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Order" asp-action="OrdersWithCurrentStatus">Done orders</button>
+    </form>
+    <form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="hidden" asp-for="Status" class="form-control" aria-describedby="emailHelp" value="@Status.InProgress">
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Order" asp-action="OrdersWithCurrentStatus">InProgress orders</button>
+    </form>
+    <form method="get" asp-action="Index" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="hidden" asp-for="Status" class="form-control" aria-describedby="emailHelp" value="@Status.NotStarted">
+      </div>
+      <button type="submit" class="btn btn-primary" asp-controller="Order" asp-action="OrdersWithCurrentStatus">NotStarted orders</button>
+    </form>
+<table class="table">
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <p class="card-text m-0">
+                            <strong>Start:</strong> @order.StartDate
+                        </p>
+                        <p class="card-text m-0">
+                            <strong>Price:</strong> @order.Payment
+                        </p>
+                        <p class="card-text m-0">
+                            <strong>Booster:</strong> @order.Booster.UserName
+                        </p>
+                        <p class="card-text m-0">
+                            <strong>Status:</strong> @order.status
+                        </p>                       
+                        <p class="card-text m-0">
+                            <a asp-controller="Order" asp-action="Detail" asp-route-id="@order.Id" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                            {
+                                <a asp-controller="Order" asp-action="Edit" asp-route-id="@order.Id" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            }  
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@order.Shop.Image" alt="Card image cap" width="50" height="50">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

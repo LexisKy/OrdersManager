@@ -1,0 +1,25 @@
+﻿@using OrdersManager.ViewModels
+@model CreateShopViewModel
+
+@{
+    //Layout = null;
+}
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label asp-for="Name" class="form-label">Name</label>
+    <input asp-for="Name" class="form-control" aria-describedby="emailHelp">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Url" class="form-label">URL</label>
+    <input asp-for="Url" class="form-control" aria-describedby="emailHelp">
+    <span asp-validation-for="Url" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Image" class="form-label">Image</label>
+    <input asp-for="Image" type="file" class="form-control" aria-describedby="emailHelp">
+    <span asp-validation-for="Image" class="text-danger"></span>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
